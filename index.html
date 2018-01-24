@@ -8,11 +8,11 @@
   <div id="app">
     <h2>100 Most Frequently Occurring Words from Moby Dick</h2>
     <button v-on:click="clickMe">Click Me</button>
-    <div id="foo">Foo</div>
+    <pre id="fileDisplayArea">Text</pre>
   </div>
 
   <script>
-    var foo = document.getElementById('foo');
+    var fileDisplayArea = document.getElementById('fileDisplayArea');
     var app = new Vue({
       el: '#app',
       data: {
@@ -20,7 +20,7 @@
       },
       methods: {
         clickMe: function() {
-          console.log(foo);
+          console.log(fileDisplayArea);
         }
       }
     })
