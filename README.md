@@ -1,5 +1,4 @@
-# SIMPLE VUEJS MOBY DICK APPLICATION
-
+# VueJS Moby Dick Text Sort Application
 The purpose of this project is to open and read txt files in JavaScript/Vue.js, and modify the imported txt object. Specifically, the goal is to create a list of the top 100 most frequently occurring words, excluding stop words, paired with the count occurrence of the word in the text of Moby Dick. 
 
 ## Usage and Installation
