@@ -7,31 +7,39 @@
   <body>
     <div id="app">
       <h2 id="mobyDick">100 Most Frequently Occurring Words from Moby Dick</h2>
-      <button v-on:click="loadText">Load Text</button>
+      <button v-on:click="editText()">transform</button>
 
       <pre id="fileDisplayArea"></pre>
     </div>
+
 
     <script>
       var app = new Vue({
         el: '#app',
         data: {
-          message: '100 Most Frequently Occurring Words from Moby Dick',
+          message: 'hello there'
         },
-        methods: {
-          loadText: function() {
-            var rawFile = new XMLHttpRequest();
-            rawFile.open('GET', '/mobydick.txt');
-            rawFile.onreadystatechange = function() {
-              if(rawFile.readyState === 4) {
-                if(rawFile.status === 200 || rawFile.status == 0) {
-                  var allText = rawFile.responseText;
-                  fileDisplayArea.innerText = allText
-                }
+        mounted: function() {
+          var rawFile;
+          rawFile = new XMLHttpRequest();
+          rawFile.onreadystatechange = function() {
+            if(this.readyState === 4) {
+              if(rawFile.status === 200 || rawFile.status == 0) {
+                editText(this);
               }
             }
-            rawFile.send();
+          };
+          rawFile.open('GET', '/stop-words.txt');
+          rawFile.send(null);
+
+          function editText(xhttp) {
+            var changedFile = xhttp;
+            document.getElementById("fileDisplayArea").innerHTML = changedFile.responseText
           }
+        },
+
+        methods: {
+
         }
       })
     </script>
