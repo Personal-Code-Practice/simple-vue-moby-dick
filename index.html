@@ -7,7 +7,7 @@
 <body>
   <div id="app">
     <h2>100 Most Frequently Occurring Words from Moby Dick</h2>
-    <button v-on:click="clickMe">Click Me</button>
+    <button v-on:click="readTextFile">Read File</button>
     <pre id="fileDisplayArea">Text</pre>
   </div>
 
@@ -19,11 +19,22 @@
         message: '100 Most Frequently Occurring Words from Moby Dick'
       },
       methods: {
-        clickMe: function() {
-          console.log(fileDisplayArea);
+        readTextFile: function() {
+          var rawFile = new XMLHttpRequest();
+          rawFile.open("GET", file, false);
+          rawFile.onreadystatechange = function() {
+            if(rawFile.readyState === 4) {
+              if(rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                fileDisplayArea.innerText = allText
+              }
+            }
+          }
+          rawFile.send(null);
         }
       }
     })
+    readTextFile("mobydick.txt");
   </script>
 </body>
 </html>
