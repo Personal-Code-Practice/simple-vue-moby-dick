@@ -6,35 +6,42 @@
 </head>
 <body>
   <div id="app">
-    <h2>100 Most Frequently Occurring Words from Moby Dick</h2>
-    <button v-on:click="readTextFile">Read File</button>
+    <h2 id="mobyDick">100 Most Frequently Occurring Words from Moby Dick</h2>
+    <!-- <button v-on:click="readTextFile">Read File</button> -->
+    <button v-on:click="clickMe">Click Me</button>
+
     <pre id="fileDisplayArea">Text</pre>
   </div>
 
   <script>
     var fileDisplayArea = document.getElementById('fileDisplayArea');
+    var mobyDick = document.getElementById('mobyDick');
     var app = new Vue({
       el: '#app',
       data: {
         message: '100 Most Frequently Occurring Words from Moby Dick'
       },
       methods: {
-        readTextFile: function() {
-          var rawFile = new XMLHttpRequest();
-          rawFile.open("GET", file, false);
-          rawFile.onreadystatechange = function() {
-            if(rawFile.readyState === 4) {
-              if(rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                fileDisplayArea.innerText = allText
-              }
-            }
-          }
-          rawFile.send(null);
+        // readTextFile: function(file) {
+        //   var rawFile = new XMLHttpRequest();
+        //   rawFile.open("GET", file, false);
+        //   rawFile.onreadystatechange = function() {
+        //     if(rawFile.readyState === 4) {
+        //       if(rawFile.status === 200 || rawFile.status == 0) {
+        //         var allText = rawFile.responseText;
+        //         fileDisplayArea.innerText = allText
+        //       }
+        //     }
+        //   }
+        //   rawFile.send(null);
+        // },
+        clickMe: function() {
+          console.log('Moby Dick is in function');
         }
       }
     })
-    readTextFile("mobydick.txt");
+    console.log('Moby Dick is outside function');
+    // console.log(readTextFile('file:///Users/Jaz/Desktop/mobydick.txt'));
   </script>
 </body>
 </html>
