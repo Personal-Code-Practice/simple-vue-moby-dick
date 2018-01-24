@@ -33,13 +33,14 @@
           rawFile.send(null);
 
           function editText(xhttp) {
-            var changedFile = xhttp;
-            document.getElementById("fileDisplayArea").innerHTML = changedFile.responseText
+            var i;
+            var textFile = xhttp.responseText;
+            document.getElementById("fileDisplayArea").innerHTML = textFile;
           }
         },
 
         methods: {
-
+          
         }
       })
     </script>
