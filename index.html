@@ -27,7 +27,7 @@
               var reader = new FileReader();
 
               reader.onload = function(e) {
-                // reader.result: a long string composed of the entire text, e.g. "a b c"
+                // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
                 var string = reader.result;
                     string = string.split("");
                 var stringArray = new Array();
@@ -35,15 +35,18 @@
                 for (var i = 0; i < string.length; i++) {
                   stringArray.push(string[i].split(/ ,+/));
                 }
-                var characters = stringArray
                 // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
+                var characters = stringArray
 
+                // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
                 var charactersArray = new Array();
                 for (var i = 121, j = characters.length; i < j; i++) {
                   charactersArray.push(characters[i].join());
                 }
-                // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
-                console.log(charactersArray.join(''));
+                // words: a long string composed of necessary words e.g. "a about above across..."
+                var words = charactersArray.join("");
+                // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
+                var stopWordsArray = words.split(/,?\s+/);
               }
 
               reader.readAsText(file);
