@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome to Vue</title>
+    <title>Fetch Text File</title>
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-    <div id="app">
-      <h2 id="mobyDick">100 Most Frequently Occurring Words from Moby Dick</h2>
-      <button v-on:click="editText()">transform</button>
-
-      <pre id="fileDisplayArea"></pre>
-    </div>
-
+    <button id="getText">Get Text</button>
+    <div id="output"></div>
 
     <script>
-      var app = new Vue({
-        el: '#app',
-        data: {
-          message: 'hello there'
-        },
-        mounted: function() {
-          var rawFile;
-          rawFile = new XMLHttpRequest();
-          rawFile.onreadystatechange = function() {
-            if(this.readyState === 4) {
-              if(rawFile.status === 200 || rawFile.status == 0) {
-                editText(this);
-              }
-            }
-          };
-          rawFile.open('GET', '/stop-words.txt');
-          rawFile.send(null);
+      document.getElementById('getText').addEventListener('click', getText);
 
-          function editText(xhttp) {
-            var i;
-            var textFile = xhttp.responseText;
-            document.getElementById("fileDisplayArea").innerHTML = textFile;
-          }
-        },
-
-        methods: {
-          
-        }
-      })
+      function getText() {
+        fetch('stop-words.txt')
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById('output').innerHTML = data;
+        })
+        .catch((err) => console.log(err))
+      }
     </script>
   </body>
 </html>
+
+<!-- <div id="app">
+</div> -->
+<!-- <script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello there'
+    },
+    methods: {
+
+    })
+</script> -->
