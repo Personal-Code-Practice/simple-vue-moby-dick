@@ -25,9 +25,14 @@
               var reader = new FileReader();
 
               reader.onload = function(e) {
-                fileDisplayArea.innerText = reader.result;
-                var text = typeof(reader.result.split(','));
-                console.log(text);
+                var string = reader.result;
+                    string = string.split(" ");
+                var stringArray = new Array();
+
+                for (var i = 0; i < string.length; i++) {
+                  stringArray.push(string[i]);
+                }
+                console.log(stringArray);
               }
 
               reader.readAsText(file);
