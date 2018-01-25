@@ -32,6 +32,15 @@
                 for (var i = 0; i < string.length; i++) {
                   stringArray.push(string[i]);
                 }
+                for (var i = 0; i < stringArray.length; i++) {
+                  var word = stringArray[i];
+                  var index = word.indexOf(word);
+                  while(index > 15) {
+                    indices.push(index);
+                    index = word.indexOf(word, index + 1);
+                  }
+                  // console.log(stringArray[i].replace(/([.,\/#!$%\^&\*;:{}=\-_`~()\]\[])+$/g, ""));
+                }   
                 console.log(stringArray);
               }
 
