@@ -5,33 +5,31 @@
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-    <button id="getText">Get Text</button>
-    <div id="output"></div>
+    <div id="app">
+      <button id="getText">Get Text</button>
+      <div id="output"></div>
+    </div>
 
     <script>
-      document.getElementById('getText').addEventListener('click', getText);
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'hello there',
+        },
 
-      function getText() {
-        fetch('stop-words.txt')
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById('output').innerHTML = data;
-        })
-        .catch((err) => console.log(err))
-      }
+        mounted: function() {
+
+          function getText() {
+            document.getElementById('getText').addEventListener('click', getText)
+            fetch('mobydick.txt')
+            .then((response) => response.text())
+            .then(function(data) {
+              document.getElementById('output').innerHTML = data;
+            })
+            .catch((err) => console.log(err))
+          }
+        }
+      });
     </script>
   </body>
 </html>
-
-<!-- <div id="app">
-</div> -->
-<!-- <script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-      message: 'hello there'
-    },
-    methods: {
-
-    })
-</script> -->
