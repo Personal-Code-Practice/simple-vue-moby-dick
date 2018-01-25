@@ -26,17 +26,20 @@
 
               reader.onload = function(e) {
                 var string = reader.result;
-                    string = string.split(" ");
+                    string = string.split("");
                 var stringArray = new Array();
 
                 for (var i = 0; i < string.length; i++) {
                   stringArray.push(string[i].split(/ ,+/));
                 }
-                var words = stringArray.slice(16)
-                for (var i = 0, j = words.length; i < j; i++) {
-                console.log(words.slice(i,j));
+                var characters = stringArray
+                var words = new Array();
+                for (var i = 121, j = characters.length; i < j; i++) {
+                  charactersArray.push(characters[i].join());
                 }
-                  // console.log(stringArray[i].replace(/([.,\/#!$%\^&\*;:{}=\-_`~()\]\[])+$/g, ""));
+                for (var i = 0; i < charactersArray.length; i++) {
+                  
+                }
               }
 
               reader.readAsText(file);
