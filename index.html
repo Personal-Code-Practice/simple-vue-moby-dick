@@ -2,128 +2,150 @@
 <html>
   <head>
     <title>Welcome to Vue</title>
-    <script src="https://unpkg.com/vue"></script>
   </head>
   <body onload="stopWordText(); mobyDickText(); compareText()">
-      <h1>Text File Reader</h1>
 
-      <!-- <div>
+    <div style="width:1000px;background:#ffe6e6;margin:10px;min-height:500px;">
+      <h2>100 Most Frequently Occurring Words from Moby Dick</h2>
+      <button type="button" onclick="compareText()">Compare text!</button> 
+      <div style="margin-top:50px;">
         Select stop-word.txt file here: 
         <input type="file" id="stopWordInput">
       </div>
-      <pre id="stopWordsDisplayArea"></pre> -->
+      <pre id="stopWordsDisplayArea" style="overflow-x:auto;margin-bottom:50px;width:70%"></pre>
 
-      <div>
+      <div style="margin-top:50px;">
         Select mobydick.txt file here: 
         <input type="file" id="mobyDickInput">
       </div>
-      <pre id="mobyDickDisplayArea"></pre>
+      <pre id="mobyDickDisplayArea" style="overflow-x:auto;margin-bottom:50px;width:70%"></pre>
+    </div>
 
-      <script>
-        // OBJECTIVE 1: separate string to take out irrelevant words in the stop-words and mobydick txt files, then put back words together as an array with many word elements e.g. ["a", "about", "above"].
-        // OBJECTIVE 2: To be able to compare words within stop-words arrayand mobydick array.
-        // OBJECTIVE 3: To be able to sort mobydick by top 100 most frequent words with count.
+    <script>
+      // OBJECTIVE 1: separate string to take out irrelevant words in the stop-words and mobydick txt files, then put back words together as an array with many word elements e.g. ["a", "about", "above"].
+      // OBJECTIVE 2: To be able to compare words within stop-words array and mobydick array.
+          // Need to take return value from the functions of stop-words and mobydick text array to compare them.
+          // After getting the noStopWordsArray, need to loop through to get frequency count
+      // OBJECTIVE 3: To be able to sort mobydick by top 100 most frequent words with count.
+          // Ideally have a hash with k = word, v = frequency.
+          // Use the sort function and take reverse to flip asc to desc. Call on the first 100 elements of hash.
 
-        //<---------------------- BEGIN FORMATTING STOP-WORDS.TXT ---------------------->//
-        function stopWordText() {
-        //   var stopWordInput = document.getElementById('stopWordInput');
-        //   var stopWordsDisplayArea = document.getElementById('stopWordsDisplayArea');
+      //<---------------------- BEGIN FORMATTING STOP-WORDS.TXT ---------------------->//
+      function stopWordText() {
+        var stopWordInput = document.getElementById('stopWordInput');
+        var stopWordsDisplayArea = document.getElementById('stopWordsDisplayArea');
 
-        //   stopWordInput.addEventListener('change', function(e) {
-        //     var file = stopWordInput.files[0];
-        //     var textType = /text.*/;
+        stopWordInput.addEventListener('change', function(e) {
+          var file = stopWordInput.files[0];
+          var textType = /text.*/;
 
-        //     if (file.type.match(textType)) {
-        //       var reader = new FileReader();
+          if (file.type.match(textType)) {
+            var reader = new FileReader();
 
-        //       reader.onload = function(e) {
-        //         // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
-        //         var string = reader.result;
-        //             string = string.split("");
-        //         var stringArray = new Array();
+            reader.onload = function(e) {
+              // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
+              var string = reader.result;
+                  string = string.split("");
+              var stringArray = new Array();
 
-        //         for (var i = 0; i < string.length; i++) {
-        //           stringArray.push(string[i].split(/ ,+/));
-        //         }
-        //         // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
-        //         var characters = stringArray
+              for (var i = 0; i < string.length; i++) {
+                stringArray.push(string[i].split(/ ,+/));
+              }
+              // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
+              var characters = stringArray
 
-        //         // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
-        //         var charactersArray = new Array();
-        //         for (var i = 121, j = characters.length; i < j; i++) {
-        //           charactersArray.push(characters[i].join());
-        //         }
-        //         // words: a long string composed of necessary words e.g. "a about above across..."
-        //         var words = charactersArray.join("");
-        //         // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
-        //         var stopWordsArray = words.split(/,?\s+/);
-        //         stopWordsDisplayArea.innerText = stopWordsArray;
-        //         return stopWordsArray
-        //       }
-        //       reader.readAsText(file);
-        //     } else {
-        //       stopWordsDisplayArea.innerText = "File not supported!"
-        //     }
-        //   });
-        }
-        //<---------------------- END FORMATTING STOP-WORDS.TXT ---------------------->//
-
-
-        //<---------------------- BEGIN FORMATTING MOBYDICK.TXT ---------------------->//
-        // function mobyDickText() {
-        //   var mobyDickInput = document.getElementById('mobyDickInput');
-        //   var mobyDickDisplayArea = document.getElementById('mobyDickDisplayArea');
-
-        //   mobyDickInput.addEventListener('change', function(e) {
-        //     var file = mobyDickInput.files[0];
-        //     var textType = /text.*/;
-
-        //     if (file.type.match(textType)) {
-        //       var reader = new FileReader();
-
-        //       reader.onload = function(e) {
-        //         // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
-        //         var string = reader.result.toLowerCase().replace(/[.,\/?#!$%\“^&\*;:{}=\-_`~()]/g,"");
-        //             string = string.split("");
-        //         var stringArray = new Array();
-
-        //         for (var i = 0; i < string.length; i++) {
-        //           stringArray.push(string[i].split(/ ,+/));
-        //         }
-        //         // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
-        //         var characters = stringArray
-
-        //         // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
-        //         var charactersArray = new Array();
-        //         for (var i = 6180, j = characters.length; i < j; i++) {
-        //           charactersArray.push(characters[i].join());
-        //         }
-        //         // words: a long string composed of necessary words e.g. "a about above across..."
-        //         var words = charactersArray.join("");
-        //         // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
-        //         var mobyDickArray = words.split(/,?\s+/);
-        //         mobyDickDisplayArea.innerText = mobyDickArray;
-        //         return mobyDickArray
-        //       }
-
-        //       reader.readAsText(file);
-        //     } else {
-        //       mobyDickDisplayArea.innerText = "File not supported!"
-        //     }
-        //   });
-        // }
-        //<---------------------- END FORMATTING MOBYDICK.TXT ---------------------->//
-
-
-        //<-------------- BEGIN MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
-          function compareText() {
-
+              // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
+              var charactersArray = new Array();
+              for (var i = 121, j = characters.length; i < j; i++) {
+                charactersArray.push(characters[i].join());
+              }
+              // words: a long string composed of necessary words e.g. "a about above across..."
+              var words = charactersArray.join("");
+              // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
+              var stopWordsArray = words.split(/,?\s+/);
+              stopWordsDisplayArea.innerText = stopWordsArray;
+              return stopWordsArray
+            }
+            reader.readAsText(file);
+          } else {
+            stopWordsDisplayArea.innerText = "File not supported!"
           }
+        });
+      }
+      stopWordText();
+      //<---------------------- END FORMATTING STOP-WORDS.TXT ---------------------->//
 
 
-        //<-------------- END MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
-      // console.log(stopWordsArray);
-      </script>
+      //<---------------------- BEGIN FORMATTING MOBYDICK.TXT ---------------------->//
+      function mobyDickText() {
+        var mobyDickInput = document.getElementById('mobyDickInput');
+        var mobyDickDisplayArea = document.getElementById('mobyDickDisplayArea');
+
+        mobyDickInput.addEventListener('change', function(e) {
+          var file = mobyDickInput.files[0];
+          var textType = /text.*/;
+
+          if (file.type.match(textType)) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
+              var string = reader.result.toLowerCase().replace(/[.,\/?#!$%\“^&\*;:{}=\-_`~()]/g,"");
+                  string = string.split("");
+              var stringArray = new Array();
+
+              for (var i = 0; i < string.length; i++) {
+                stringArray.push(string[i].split(/ ,+/));
+              }
+              // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
+              var characters = stringArray
+
+              // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
+              var charactersArray = new Array();
+              for (var i = 6180, j = characters.length; i < j; i++) {
+                charactersArray.push(characters[i].join());
+              }
+              // words: a long string composed of necessary words e.g. "a about above across..."
+              var words = charactersArray.join("");
+              // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
+              var mobyDickArray = words.split(/,?\s+/);
+              mobyDickDisplayArea.innerText = mobyDickArray;
+              return mobyDickArray
+            }
+
+            reader.readAsText(file);
+          } else {
+            mobyDickDisplayArea.innerText = "File not supported!"
+          }
+        });
+      }
+      //<---------------------- END FORMATTING MOBYDICK.TXT ---------------------->//
+
+
+      //<-------------- BEGIN MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
+        function compareText() {
+          console.log('function working?');
+          // need to find a way to retrieve return value of stopWordsText() and mobyDickText().
+          // in the mean time, I am using sample arrays to write formula.
+          moby = new Array("a", "a", "are", "usher", "school", "all", "pale", "usher", "the", "consumptive").sort()
+          stop = new Array("a", "about", "are", "the", "after", "against", "all").sort()
+          // expectations: the final array should contain the words: consumptive, school, pale, usher, usher
+          for (var i = 0; i < stop.length; i++) {
+            var arrLength = moby.length;
+            for (var j = 0; j < arrLength; j++) {
+              if (stop[i] == moby[j]) {
+                  moby = moby.slice(0, j).concat(moby.slice(j+1, arrLength));
+              }
+            }
+          }
+          alert(moby);
+          // result: test failed; since the stop array is only compared once, repetitive words such as the two "a"s are missed.
+          // returned array: [a,consumptive,pale,school,usher,usher]
+        }
+
+      //<-------------- END MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
+    // console.log(stopWordsArray);
+    </script>
   </body>
 </html>
 
