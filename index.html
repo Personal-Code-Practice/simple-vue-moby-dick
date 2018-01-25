@@ -7,7 +7,7 @@
 
     <div style="width:1000px;background:#ffe6e6;margin:10px;min-height:500px;">
       <h2>100 Most Frequently Occurring Words from Moby Dick</h2>
-      <button type="button" onclick="compareText()">Compare text!</button> 
+
       <div style="margin-top:50px;">
         Select stop-word.txt file here: 
         <input type="file" id="stopWordInput">
@@ -124,7 +124,6 @@
 
       //<-------------- BEGIN MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
         function compareText() {
-          console.log('function working?');
           // need to find a way to retrieve return value of stopWordsText() and mobyDickText().
           // in the mean time, I am using sample arrays to write formula.
           moby = new Array("a", "a", "are", "usher", "school", "all", "pale", "usher", "the", "consumptive").sort()
@@ -138,7 +137,7 @@
               }
             }
           }
-          alert(moby);
+          // alert(moby);
           // result: test failed; since the stop array is only compared once, repetitive words such as the two "a"s are missed.
           // returned array: [a,consumptive,pale,school,usher,usher]
         }
