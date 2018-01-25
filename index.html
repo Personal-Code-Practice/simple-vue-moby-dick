@@ -13,6 +13,8 @@
       <pre id="fileDisplayArea"><pre>
 
       <script>
+        // GOAL: separate string to take out irrelevant text, then put back words into an array with many element words
+        // e.g. ["a", "about", "above"], to ultimately sort array and extract top 100 most frequent words.
         window.onload = function() {
           var fileInput = document.getElementById('fileInput');
           var fileDisplayArea = document.getElementById('fileDisplayArea');
@@ -25,6 +27,7 @@
               var reader = new FileReader();
 
               reader.onload = function(e) {
+                // reader.result: a long string composed of the entire text, e.g. "a b c"
                 var string = reader.result;
                     string = string.split("");
                 var stringArray = new Array();
@@ -33,13 +36,14 @@
                   stringArray.push(string[i].split(/ ,+/));
                 }
                 var characters = stringArray
-                var words = new Array();
+                // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
+
+                var charactersArray = new Array();
                 for (var i = 121, j = characters.length; i < j; i++) {
                   charactersArray.push(characters[i].join());
                 }
-                for (var i = 0; i < charactersArray.length; i++) {
-                  
-                }
+                // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
+                console.log(charactersArray.join(''));
               }
 
               reader.readAsText(file);
@@ -49,40 +53,6 @@
           });
         }
       </script>
-
-<!--     <script>
-      var app = new Vue({
-        el: '#app',
-        data: {
-          message: 'hello there'
-        },
-        mounted: function() {
-          var rawFile;
-          rawFile = new XMLHttpRequest();
-          rawFile.onreadystatechange = function() {
-            if(this.readyState === 4) {
-              if(rawFile.status === 200 || rawFile.status == 0) {
-                editText(this);
-              }
-            }
-          };
-          rawFile.open('GET', '/stop-words.txt');
-          rawFile.send(null);
-
-          function editText(xhttp) {
-            var i;
-            var textFile = xhttp.responseText;
-            document.getElementById("fileDisplayArea").innerHTML = textFile;
-          }
-        },
-
-        methods: {
-
-        }
-      })
-    </script> -->
   </body>
 </html>
 
-<!-- <div id="app">
-</div> -->
