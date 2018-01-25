@@ -30,18 +30,13 @@
                 var stringArray = new Array();
 
                 for (var i = 0; i < string.length; i++) {
-                  stringArray.push(string[i]);
+                  stringArray.push(string[i].split(/ ,+/));
                 }
-                for (var i = 0; i < stringArray.length; i++) {
-                  var word = stringArray[i];
-                  var index = word.indexOf(word);
-                  while(index > 15) {
-                    indices.push(index);
-                    index = word.indexOf(word, index + 1);
-                  }
+                var words = stringArray.slice(16)
+                for (var i = 0, j = words.length; i < j; i++) {
+                console.log(words.slice(i,j));
+                }
                   // console.log(stringArray[i].replace(/([.,\/#!$%\^&\*;:{}=\-_`~()\]\[])+$/g, ""));
-                }   
-                console.log(stringArray);
               }
 
               reader.readAsText(file);
