@@ -7,17 +7,17 @@
   <body onload="stopWordText(); mobyDickText(); compareText()">
       <h1>Text File Reader</h1>
 
-      <div>
+      <!-- <div>
         Select stop-word.txt file here: 
         <input type="file" id="stopWordInput">
       </div>
-      <pre id="stopWordsDisplayArea"></pre>
+      <pre id="stopWordsDisplayArea"></pre> -->
 
-    <!--   <div>
+      <div>
         Select mobydick.txt file here: 
         <input type="file" id="mobyDickInput">
       </div>
-      <pre id="mobyDickDisplayArea"></pre> -->
+      <pre id="mobyDickDisplayArea"></pre>
 
       <script>
         // OBJECTIVE 1: separate string to take out irrelevant words in the stop-words and mobydick txt files, then put back words together as an array with many word elements e.g. ["a", "about", "above"].
@@ -26,56 +26,11 @@
 
         //<---------------------- BEGIN FORMATTING STOP-WORDS.TXT ---------------------->//
         function stopWordText() {
-          var stopWordInput = document.getElementById('stopWordInput');
-          var stopWordsDisplayArea = document.getElementById('stopWordsDisplayArea');
+        //   var stopWordInput = document.getElementById('stopWordInput');
+        //   var stopWordsDisplayArea = document.getElementById('stopWordsDisplayArea');
 
-          stopWordInput.addEventListener('change', function(e) {
-            var file = stopWordInput.files[0];
-            var textType = /text.*/;
-
-            if (file.type.match(textType)) {
-              var reader = new FileReader();
-
-              reader.onload = function(e) {
-                // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
-                var string = reader.result;
-                    string = string.split("");
-                var stringArray = new Array();
-
-                for (var i = 0; i < string.length; i++) {
-                  stringArray.push(string[i].split(/ ,+/));
-                }
-                // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
-                var characters = stringArray
-
-                // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
-                var charactersArray = new Array();
-                for (var i = 121, j = characters.length; i < j; i++) {
-                  charactersArray.push(characters[i].join());
-                }
-                // words: a long string composed of necessary words e.g. "a about above across..."
-                var words = charactersArray.join("");
-                // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
-                var stopWordsArray = words.split(/,?\s+/);
-                stopWordsDisplayArea.innerText = stopWordsArray;
-                return stopWordsArray
-              }
-              reader.readAsText(file);
-            } else {
-              stopWordsDisplayArea.innerText = "File not supported!"
-            }
-          });
-        }
-        //<---------------------- END FORMATTING STOP-WORDS.TXT ---------------------->//
-
-
-        //<---------------------- BEGIN FORMATTING MOBYDICK.TXT ---------------------->//
-        function mobyDickText() {
-        //   var mobyDickInput = document.getElementById('mobyDickInput');
-        //   var mobyDickDisplayArea = document.getElementById('mobyDickDisplayArea');
-
-        //   mobyDickInput.addEventListener('change', function(e) {
-        //     var file = mobyDickInput.files[0];
+        //   stopWordInput.addEventListener('change', function(e) {
+        //     var file = stopWordInput.files[0];
         //     var textType = /text.*/;
 
         //     if (file.type.match(textType)) {
@@ -101,8 +56,54 @@
         //         // words: a long string composed of necessary words e.g. "a about above across..."
         //         var words = charactersArray.join("");
         //         // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
+        //         var stopWordsArray = words.split(/,?\s+/);
+        //         stopWordsDisplayArea.innerText = stopWordsArray;
+        //         return stopWordsArray
+        //       }
+        //       reader.readAsText(file);
+        //     } else {
+        //       stopWordsDisplayArea.innerText = "File not supported!"
+        //     }
+        //   });
+        }
+        //<---------------------- END FORMATTING STOP-WORDS.TXT ---------------------->//
+
+
+        //<---------------------- BEGIN FORMATTING MOBYDICK.TXT ---------------------->//
+        // function mobyDickText() {
+        //   var mobyDickInput = document.getElementById('mobyDickInput');
+        //   var mobyDickDisplayArea = document.getElementById('mobyDickDisplayArea');
+
+        //   mobyDickInput.addEventListener('change', function(e) {
+        //     var file = mobyDickInput.files[0];
+        //     var textType = /text.*/;
+
+        //     if (file.type.match(textType)) {
+        //       var reader = new FileReader();
+
+        //       reader.onload = function(e) {
+        //         // reader.result: a long string composed of the entire text, e.g. "Freely available stopword..."
+        //         var string = reader.result.toLowerCase().replace(/[.,\/?#!$%\“^&\*;:{}=\-_`~()]/g,"");
+        //             string = string.split("");
+        //         var stringArray = new Array();
+
+        //         for (var i = 0; i < string.length; i++) {
+        //           stringArray.push(string[i].split(/ ,+/));
+        //         }
+        //         // characters: an object with many arrays each with one character, e.g. ["a"], ["b"], ["c"]
+        //         var characters = stringArray
+
+        //         // charactersArray: an array of individual character strings, e.g. ["a", "b", "c"]
+        //         var charactersArray = new Array();
+        //         for (var i = 6180, j = characters.length; i < j; i++) {
+        //           charactersArray.push(characters[i].join());
+        //         }
+        //         // words: a long string composed of necessary words e.g. "a about above across..."
+        //         var words = charactersArray.join("");
+        //         // stopWordsArray: an array with each word as a string element e.g. ["a", "about", "above"]
         //         var mobyDickArray = words.split(/,?\s+/);
         //         mobyDickDisplayArea.innerText = mobyDickArray;
+        //         return mobyDickArray
         //       }
 
         //       reader.readAsText(file);
@@ -110,13 +111,13 @@
         //       mobyDickDisplayArea.innerText = "File not supported!"
         //     }
         //   });
-        }
+        // }
         //<---------------------- END FORMATTING MOBYDICK.TXT ---------------------->//
 
 
         //<-------------- BEGIN MOBYDICK.TXT & STOP-WORDS COMPARISON --------------->//
           function compareText() {
-            
+
           }
 
 
